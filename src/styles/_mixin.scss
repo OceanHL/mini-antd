@@ -1,0 +1,38 @@
+@mixin button-size($padding-x, $padding-y, $font-size, $border-radius) {
+  // 写想复用的属性
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  border-radius: $border-radius;
+}
+
+@mixin button-style(
+  $background,
+  $border-color,
+  $color,
+  // 背景浅上7.5%
+  $hover-background: lighten($background, 7.5%),
+  // 边框浅上10%
+  $hover-border-color: lighten($border-color, 10%),
+  $hover-color: $color
+) {
+  color: $color;
+  background: $background;
+  border-color: $border-color;
+  &:hover {
+    color: $hover-color;
+    background: $hover-background;
+    border-color: $hover-border-color;
+  }
+  &:focus,
+  &.focus {
+    color: $hover-color;
+    background: $hover-background;
+    border-color: $hover-border-color;
+  }
+  &:disabled,
+  &.disabled {
+    color: $color;
+    background: $background;
+    border-color: $border-color;
+  }
+}

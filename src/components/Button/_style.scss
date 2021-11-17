@@ -1,0 +1,66 @@
+// 按钮基本样式
+.btn {
+  position: relative;
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  color: $body-color;
+  white-space: nowrap; // 如何处理元素中的空白。nowrap 表示连续的空白符会被合并。但文本内的换行无效。
+  text-align: center; // 控制【行内内容】如何相对它的块父元素对齐
+  vertical-align: middle; // 控制行内元素、表格单元格元素的垂直对齐方式
+  background-image: none;
+  border: $btn-border-width solid transparent;
+  @include button-size($btn-padding-x, $btn-padding-y, $btn-font-size, $border-radius);
+  box-shadow: $btn-box-shadow;
+  cursor: pointer; //
+  transition: $btn-transition; // 过渡
+  /* disabled样式，包含类样式 / 包含 disabled 属性 */
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: $btn-disabled-opacity;
+    box-shadow: none;
+    > * {
+      pointer-events: none; // 所有子元素都不会触发鼠标事件（target）
+    }
+  }
+}
+
+.btn-lg {
+  @include button-size($btn-padding-x-lg, $btn-padding-y-lg, $btn-font-size-lg, $border-radius-lg);
+}
+.btn-sm {
+  @include button-size($btn-padding-x-sm, $btn-padding-y-sm, $btn-font-size-sm, $border-radius-sm);
+}
+
+.btn-primary {
+  @include button-style($primary, $primary, $white);
+}
+
+.btn-danger {
+  @include button-style($danger, $danger, $white);
+}
+
+.btn-default {
+  @include button-style($white, $gray-400, $body-color, $white, $primary, $primary);
+}
+
+.btn-link {
+  font-weight: $font-weight-normal;
+  color: $btn-link-color;
+  text-decoration: $link-decoration; // 设置文本的修饰线外观的
+  &:hover {
+    color: $btn-link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+    box-shadow: none;
+  }
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
+}
