@@ -2,15 +2,15 @@
  * @Author: jhl
  * @Date: 2021-11-17 18:07:49
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-18 11:47:30
+ * @LastEditTime: 2021-11-18 14:51:08
  * @Description:
  */
 import React, { useState, useContext, FunctionComponentElement } from "react";
 import classNames from "classnames";
-import { CSSTransition } from "react-transition-group";
 import { MenuContext } from "./menu";
 import { MenuItemProps } from "./menuItem";
 import Icon from "../Icon/icon";
+import Transition from "../Transition/transition";
 
 // 定义 props 类型
 export interface SubMenuProps {
@@ -78,9 +78,9 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, className, children }) 
       }
     });
     return (
-      <CSSTransition in={menuOpen} timeout={300} classNames='zoom-in-top' appear unmountOnExit>
+      <Transition in={menuOpen} timeout={1000} animation='zoom-in-top'>
         <ul className={subMenuClasses}>{childrenComponent}</ul>
-      </CSSTransition>
+      </Transition>
     );
   };
 

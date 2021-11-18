@@ -1,5 +1,5 @@
 import React from "react";
-import Button, { ButtonType, ButtonSize } from "./components/Button/button";
+import Button from "./components/Button/button";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
@@ -44,21 +44,21 @@ function App() {
             alert("123");
           }}
           className='custom'
-          btnType={ButtonType.Default}
+          btnType='default'
         >
           Default
         </Button>
         <Button disabled>Disabled Button</Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
+        <Button btnType='primary' size='lg'>
           Large Primary
         </Button>
-        <Button btnType={ButtonType.Danger} size={ButtonSize.Small}>
+        <Button btnType='danger' size='sm'>
           Small Danger
         </Button>
-        <Button btnType={ButtonType.Link} href='http://www.baidu.com' target='_blank'>
+        <Button btnType='link' href='http://www.baidu.com' target='_blank'>
           Baidu Link
         </Button>
-        <Button btnType={ButtonType.Link} disabled href='http://www.baidu.com'>
+        <Button btnType='link' disabled href='http://www.baidu.com'>
           Disabled Link
         </Button>
         <p>
