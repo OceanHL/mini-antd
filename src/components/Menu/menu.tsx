@@ -2,7 +2,7 @@
  * @Author: jhl
  * @Date: 2021-11-17 10:45:49
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-18 09:05:35
+ * @LastEditTime: 2021-11-22 15:46:51
  * @Description:
  */
 import React, { useState, createContext } from "react";
@@ -12,12 +12,31 @@ import { MenuItemProps } from "./menuItem";
 // 字符串字面量类型
 type MenuMode = "horizontal" | "vertical";
 type SelectCallback = (selectedIndex: string) => void;
+
 export interface MenuProps {
+  /**
+   * Is this the principal call to action on the page?
+   */
   defaultIndex?: string; // 那个 item 高亮
+  /**
+   * What background color to use
+   */
   className?: string;
+  /**
+   * What background color to use
+   */
   mode?: MenuMode;
+  /**
+   * What background color to use
+   */
   style?: React.CSSProperties;
+  /**
+   * What background color to use
+   */
   onSelect?: SelectCallback;
+  /**
+   * What background color to use
+   */
   defaultOpenSubMenus?: string[];
 }
 
@@ -34,7 +53,10 @@ export const MenuContext = createContext<IMenuContext>({
   index: "0",
 });
 
-const Menu: React.FC<MenuProps> = props => {
+/**
+ * 这是一个 menu 组件
+ */
+export const Menu: React.FC<MenuProps> = props => {
   const { defaultIndex, className, mode, style, onSelect, defaultOpenSubMenus, children } = props;
   const [currentArtive, setActive] = useState(defaultIndex);
 

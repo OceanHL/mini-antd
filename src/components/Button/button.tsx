@@ -2,10 +2,10 @@
  * @Author: jhl
  * @Date: 2021-11-16 11:28:42
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-18 14:55:14
+ * @LastEditTime: 2021-11-22 15:39:18
  * @Description: Button 组件
  */
-import React from "react";
+import React, { ButtonHTMLAttributes, AnchorHTMLAttributes, FC } from "react";
 import classNames from "classnames";
 
 // 不同大小
@@ -17,19 +17,41 @@ export type ButtonType = "primary" | "default" | "danger" | "link";
 // 定义按钮组件 props 接口
 interface BaseButtonProps {
   className?: string;
+  /**
+   * 设置 Button 的禁用
+   */
   disabled?: boolean;
+  /**
+   * 设置 Button 的尺寸
+   */
   size?: ButtonSize;
+  /**
+   * 设置 Button 的类型
+   */
   btnType?: ButtonType;
+  /**
+   * 设置内容
+   */
   children: React.ReactNode;
+  /* 
+    link 类型的目标地址
+  */
   href?: string;
 }
 
 // 交叉类型：将多个类型合并为一个类型
-type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
-type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLButtonElement>;
+type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
 
-const Button: React.FC<ButtonProps> = ({
+/**
+ * 这是我们第一个 Button 组件
+ * ## Button header
+ * ~~~js
+ * import { Button } from 'mini-antd';
+ * ~~~
+ */
+export const Button: FC<ButtonProps> = ({
   className,
   disabled,
   size,

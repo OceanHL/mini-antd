@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./components/Button/button";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
@@ -6,11 +6,13 @@ import SubMenu from "./components/Menu/subMenu";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Icon from "./components/Icon/icon";
+import Transition from "./components/Transition/transition";
 
 // fas 把所有图表都引入
 library.add(fas);
 
 function App() {
+  const [show, setShow] = useState(false);
   return (
     <div className='App'>
       <header className='App-header'>
@@ -34,44 +36,37 @@ function App() {
           <MenuItem>cool link3</MenuItem>
         </Menu>
         <Button
-          autoFocus
-          onClick={(
-            e:
-              | React.MouseEvent<HTMLButtonElement, MouseEvent>
-              | React.MouseEvent<HTMLAnchorElement, MouseEvent>
-          ) => {
-            e.preventDefault();
-            alert("123");
+          size='lg'
+          onClick={() => {
+            setShow(!show);
           }}
-          className='custom'
-          btnType='default'
         >
-          Default
+          Toggle
         </Button>
-        <Button disabled>Disabled Button</Button>
-        <Button btnType='primary' size='lg'>
-          Large Primary
-        </Button>
-        <Button btnType='danger' size='sm'>
-          Small Danger
-        </Button>
-        <Button btnType='link' href='http://www.baidu.com' target='_blank'>
-          Baidu Link
-        </Button>
-        <Button btnType='link' disabled href='http://www.baidu.com'>
-          Disabled Link
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
+        <Transition in={show} timeout={300} animation='zoom-in-left'>
+          <div>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+          </div>
+        </Transition>
+        <Transition in={show} timeout={300} animation='zoom-in-top' wrapper>
+          <Button btnType='primary' size='lg'>
+            A large Button
+          </Button>
+        </Transition>
       </header>
     </div>
   );

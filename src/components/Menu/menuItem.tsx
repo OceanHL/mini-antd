@@ -2,7 +2,7 @@
  * @Author: jhl
  * @Date: 2021-11-17 11:03:53
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-18 09:02:25
+ * @LastEditTime: 2021-11-22 15:42:15
  * @Description:
  */
 import React, { useContext } from "react";
@@ -16,7 +16,7 @@ export interface MenuItemProps {
   style?: React.CSSProperties;
 }
 
-const MenuItem: React.FC<MenuItemProps> = props => {
+export const MenuItem: React.FC<MenuItemProps> = props => {
   const { index, disabled, className, style, children } = props;
   const context = useContext(MenuContext);
   const classes = classNames("menu-item", className, {
