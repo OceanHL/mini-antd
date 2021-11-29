@@ -1,0 +1,9 @@
+.item-highlighted {
+  background: $primary;
+  color: $white;
+}
+.auto-list-wrapper {
+  list-style: none;
+  background-color: whitesmoke;
+  transition: height 5s ease;
+}
