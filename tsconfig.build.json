@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext", // 设置当前使用的模块系统
+    "target": "ES5", // 设置编译以后的 ES 版本
+    "declaration": true, // 为每个 ts 生成对应的 .d.ts 文件
+    /* 
+      jsx 是 React.createElement() 的缩写，只会影响以 .tsx 文件结尾的 JS 文件的输出。
+        - preserve：输出 jsx 文件，jsx 原样不变
+        - react：输出 js 文件，将 jsx 用 React.createElement() 代替
+        - react-jsx：输出 js 文件，将 JSX 更改为 _jsx 调用
+        - react-jsxdev：输出 js 文件，将 JSX 更改为 _jsxDEV 调用
+        - react-native：输出 js 文件，jsx 原样不变，适用于 react-native
+    */
+    "jsx": "react",
+    "moduleResolution": "node", // 模块导入的【路径解析方式】
+    "allowSyntheticDefaultImports": true, // 是否允许使用 ESM 的默认导入
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}

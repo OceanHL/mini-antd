@@ -2,10 +2,10 @@
  * @Author: jhl
  * @Date: 2021-11-22 16:37:22
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-26 11:04:53
+ * @LastEditTime: 2021-12-06 10:26:45
  * @Description:
  */
-import { ReactElement, InputHTMLAttributes, FC } from "react";
+import React, { ReactElement, InputHTMLAttributes, FC } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import classNames from "classnames";
 import Icon from "../Icon/icon";

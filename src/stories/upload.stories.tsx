@@ -1,7 +1,8 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Upload } from "../components/Upload/upload";
+import Icon from "../components/Icon/icon";
+
 import type { UploadFile } from "../components/Upload/upload";
 
 export default {
@@ -12,7 +13,13 @@ export default {
   },
 } as ComponentMeta<typeof Upload>;
 
-const Template: ComponentStory<typeof Upload> = args => <Upload {...args} />;
+const Template: ComponentStory<typeof Upload> = args => (
+  <Upload {...args}>
+    <Icon icon='upload' size='5x' theme='secondary' />
+    <br />
+    <p>Drag file over to upload</p>
+  </Upload>
+);
 
 const defaultFileList: UploadFile[] = [
   { uid: "123", size: 1234, name: "hello.md", status: "uploading", percent: 30 },
@@ -40,11 +47,23 @@ const filePromise = (file: File) => {
 export const SimpleUpload = Template.bind({});
 SimpleUpload.args = {
   action: "https://jsonplaceholder.typicode.com/posts",
+  // action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onProgress: action("progress"),
   onSuccess: action("success"),
   onError: action("error"),
   defaultFileList,
   // beforeUpload: checkFileSize,
   // beforeUpload: filePromise,
+  onRemove: action("remove"),
+  name: "fileName",
+  data: {
+    key: "value",
+  },
+  headers: {
+    "X-Powered-By": "antd",
+  },
+  accept: ".jpg",
+  multiple: true,
+  drag: true,
 };
 SimpleUpload.storyName = "Upload";

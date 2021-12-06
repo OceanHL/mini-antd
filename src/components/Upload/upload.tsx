@@ -2,14 +2,15 @@
  * @Author: jhl
  * @Date: 2021-11-27 14:49:13
  * @LastEditors: jhl
- * @LastEditTime: 2021-11-27 18:05:02
+ * @LastEditTime: 2021-12-06 10:27:35
  * @Description:
  */
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 
 import Button from "../Button/button";
 import { UploadList } from "./uploadList";
+import Dragger from "./dragger";
 
 import type { FC, ChangeEvent } from "react";
 
@@ -83,6 +84,34 @@ export interface UploadProps {
    * 移除
    */
   onRemove?: (file: UploadFile) => void;
+  /**
+   * 自定义 header
+   */
+  headers?: { [key: string]: any };
+  /**
+   * 自定义请求头的字段名
+   */
+  name?: string;
+  /**
+   * 自定义 post formData
+   */
+  data?: { [key: string]: any };
+  /**
+   * 发送时是否携带 cookie-withCredentials
+   */
+  withCredentials?: boolean;
+  /**
+   * 规定上传文件的类型
+   */
+  accept?: string;
+  /**
+   * 是否允许上传多个文件
+   */
+  multiple?: boolean;
+  /**
+   * 是否开启拖拽功能
+   */
+  drag?: boolean;
 }
 
 export const Upload: FC<UploadProps> = props => {
@@ -95,6 +124,14 @@ export const Upload: FC<UploadProps> = props => {
     onError,
     onSuccess,
     onRemove,
+    headers,
+    name,
+    data,
+    withCredentials,
+    accept,
+    multiple,
+    drag,
+    children,
   } = props;
   const fileInput = useRef<HTMLInputElement>(null);
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList ?? []);
@@ -127,6 +164,14 @@ export const Upload: FC<UploadProps> = props => {
     if (fileInput.current) fileInput.current.value = ""; // 上传之后，清空选中的文件
   };
 
+  const handleRemove = (file: UploadFile) => {
+    setFileList(prevList => {
+      return prevList.filter(item => item.uid !== file.uid);
+    });
+    if (onRemove) {
+      onRemove(file);
+    }
+  };
   const uploadFiles = (files: FileList) => {
     const postFile = Array.from(files); // 转换为数组
     postFile.forEach(file => {
@@ -154,14 +199,24 @@ export const Upload: FC<UploadProps> = props => {
       percent: 0, // 上传进度
       raw: file, // 源文件内容
     };
-    setFileList([_file, ...fileList]);
+    /* setXxxx 多次调用会进行合并，只更新最后的值 */
+    setFileList(prevList => {
+      return [_file, ...prevList];
+    });
     const formData = new FormData();
-    formData.append(file.name, file);
+    formData.append(name ?? "file", file);
+    if (data) {
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key]);
+      });
+    }
     axios
       .post(action, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          ...headers,
         },
+        withCredentials, // 是否带 cookie
         onUploadProgress: progressEvent => {
           // 上传进度
           console.log("progressEvent", progressEvent);
@@ -192,17 +247,29 @@ export const Upload: FC<UploadProps> = props => {
 
   return (
     <div className='antd-upload-component'>
-      <Button btnType='primary' onClick={handleClick}>
-        Upload File
-      </Button>
+      {drag ? (
+        <Dragger
+          onFile={files => {
+            uploadFiles(files);
+          }}
+        >
+          {children}
+        </Dragger>
+      ) : (
+        <Button btnType='primary' onClick={handleClick}>
+          Upload File
+        </Button>
+      )}
       <input
         onChange={handleFileChange}
         ref={fileInput}
         type='file'
         className='antd-file-input'
         style={{ display: "none" }}
+        accept={accept}
+        multiple={multiple}
       />
-      <UploadList fileList={fileList} onRemove={() => {}} />
+      <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );
 };
