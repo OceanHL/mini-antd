@@ -47,7 +47,7 @@
     "build-css": "npx node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "eslintConfig": {
     "extends": [
